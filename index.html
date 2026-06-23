@@ -1115,7 +1115,8 @@
   });
 
   // ── PDF Email Submit handler ──────────────────────────
-  document.getElementById('pdfEmailSubmit').addEventListener('click', async () => {
+  document.addEventListener('click', async (e) => {
+    if (!e.target.closest('#pdfEmailSubmit')) return;
     const emailVal = document.getElementById('pdfEmailInput').value.trim();
     const errEl    = document.getElementById('pdfEmailError');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
@@ -1575,7 +1576,8 @@
     }
   });
 
-  document.getElementById('pdfEmailCancel').addEventListener('click', ()=>{
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#pdfEmailCancel')) return;
     document.getElementById('pdfEmailModal').style.display = 'none';
     document.getElementById('pdfEmailInput').value = '';
     document.getElementById('pdfEmailError').style.display = 'none';
