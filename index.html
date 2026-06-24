@@ -429,7 +429,7 @@
         <span class="value" id="v-annual">৳ 0</span>
       </div>
       <div class="row">
-        <span class="name">করমুক্ত অংশ (Tax-Free Amount)</span>
+        <span class="name">কর অব্যাহতি প্রাপ্ত আয় (Tax Exempted Income)</span>
         <span class="value" id="v-taxfree">৳ 0</span>
       </div>
       <div class="row">
@@ -849,6 +849,12 @@
     const remainInvest  = (investUseful && totalAllowableInvest > 0)
       ? Math.max(Math.round((maxRebate - existRebate) / 0.10), 0) : 0;
 
+    // Update Investment Rebate display:
+    // বিদ্যমান বিনিয়োগ থাকলে → existRebate (actual); না থাকলে → appliedRebate (potential max)
+    if(investUseful && totalAllowableInvest > 0){
+      document.getElementById('v-rebate2').textContent = '− '+bdt(existRebate);
+    }
+
     if(investUseful && totalAllowableInvest > 0){
       document.getElementById('investAnalysis').style.display = 'block';
       document.getElementById('v-exist-invest').textContent  = bdt(totalAllowableInvest);
@@ -1255,7 +1261,7 @@
       // ── INCOME & REBATE ───────────────────
       secTitle('INCOME & INVESTMENT REBATE');
       rowPDF('Annual Income', bdt2(r.annual));
-      rowPDF('Tax-Free Amount', bdt2(r.taxFree));
+      rowPDF('Tax Exempted Income', bdt2(r.taxFree));
       rowPDF('Taxable Income', bdt2(r.taxable));
       if(r.investUseful){
         rowPDF('Maximum Rebate', bdt2(r.appliedRebate));
@@ -1319,7 +1325,7 @@
       // ── TAX SLAB ─────────────────────────
       secTitle('TAX SLAB CALCULATION');
       const engLabels = [
-        'Tax-Free (First BDT '+fmtN(r.exemptionLimit)+')',
+        'Tax Exempted (First BDT '+fmtN(r.exemptionLimit)+')',
         'Next BDT 3,00,000',
         'Next BDT 4,00,000',
         'Next BDT 5,00,000',
