@@ -322,7 +322,7 @@
         <option value="375000">সাধারণ পুরুষ — করমুক্ত সীমা ৩,৭৫,০০০ টাকা</option>
         <option value="425000">মহিলা / ৬৫ বছর বা তার বেশি বয়সী — ৪,২৫,০০০ টাকা</option>
         <option value="500000">তৃতীয় লিঙ্গ / প্রতিবন্ধী — ৫,০০,০০০ টাকা</option>
-        <option value="525000">গেজেेटेड মুক্তিযোদ্ধা / জুলাই যোদ্ধা — ৫,২৫,০০০ টাকা</option>
+        <option value="525000">গেজেটেড মুক্তিযোদ্ধা / জুলাই যোদ্ধা — ৫,২৫,০০০ টাকা</option>
       </select>
     </div>
     <div class="two-col" style="margin-top:12px">
@@ -365,7 +365,7 @@
         <option value="insurance">জীবন বীমা প্রিমিয়াম</option>
         <option value="provident">স্বীকৃত প্রভিডেন্ট ফান্ড</option>
         <option value="superannuation">সুপারঅ্যানুয়েশন ফান্ড</option>
-        <option value="govt_sec">सरकारी সিকিউরিটিজ (সঞ্চয়পত্র, বন্ড ইত্যাদি) — সীমা ৳৫,০০,০০০</option>
+        <option value="govt_sec">সরকারি সিকিউরিটিজ (সঞ্চয়পত্র, বন্ড ইত্যাদি) — সীমা ৳৫,০০,০০০</option>
         <option value="mutual">মিউচুয়াল ফান্ড / ইউনিট সার্টিফিকেট / ETF — সীমা ৳৫,০০,০০০</option>
         <option value="dps">ডিপিএস / মাসিক সঞ্চয় স্কিম — সীমা ৳১,২০,০০০</option>
         <option value="bsec">BSEC তালিকাভুক্ত সিকিউরিটিজ</option>
@@ -849,12 +849,11 @@
 
     // ── Section 170 — Filing period incentive / penalty ──
     const filingPeriod  = document.getElementById('filingPeriod').value;
-    const payableBase   = finalTax - tds; // ভিত্তি পরিবর্তন: প্রদেয় আয়করের উপর হিসাব হবে
+    const payableBase   = finalTax - tds; 
     let s170Amount = 0, s170Type = 'none';
 
     if (!isRefund && payableBase > 0) {
       if (filingPeriod === 'q1') {
-        // গ্রস ট্যাক্স ১ থেকে ৫০০০ টাকার মধ্যে হলে কোনো ইনসেন্টিভ পাবেনা
         if (grossTax > 5000) {
           s170Amount = Math.min(Math.round(payableBase * 0.05), 25000);
           s170Type   = 'incentive';
@@ -874,13 +873,11 @@
       ? Math.max(0, payableBase - s170Amount)
       : payableBase + s170Amount;
 
-    // Final balance injection
     if (s170Type !== 'none') {
       balance = s170Type === 'incentive' ? balance - s170Amount : balance + s170Amount;
       isRefund = balance < 0;
     }
 
-    // Display updates
     const labelEl  = document.getElementById('finalTaxLabel');
     const amountEl = document.getElementById('v-nettax');
     labelEl.textContent  = isRefund
@@ -889,7 +886,6 @@
     amountEl.textContent = bdt(Math.abs(balance));
     amountEl.style.color = isRefund ? '#7ee8a2' : '#f7d489';
 
-    // Tax Messages Refined
     if(annual <= 0){
       document.getElementById('taxMsg').textContent='আয়ের তথ্য দিলে প্রদেয় কর এখানে দেখাবে।';
     } else if(grossTax === 0 && !isNew){
@@ -1037,7 +1033,7 @@
           '<div class="inv-sub">'+sub+'</div>'+capNote+'</div>'+
           '<div style="display:flex;align-items:center;gap:8px">'+
           '<div class="inv-allowable">'+fmtI(item.amount)+'</div>'+
-          '<button class="inv-del" onclick="removeInvestment('+i+')" title="муছুন">×</button>'+
+          '<button class="inv-del" onclick="removeInvestment('+i+')" title="মুছুন">×</button>'+
           '</div></div>';
       }).join('');
 
@@ -1305,7 +1301,7 @@
           columnStyles:{0:{cellWidth:100},1:{halign:'right'},2:{halign:'right',fontStyle:'bold'}},
           didDrawPage: function(data){ y = data.cursor.y; }
         });
-        y = doc.autoTable.finalY + 3;
+        y = doc.lastAutoTable.finalY + 3;
 
         if(r.existingInvestments.some(x=>x.capped)){
           if(y > 265) { doc.addPage(); y = 16; }
@@ -1341,7 +1337,7 @@
       secTitle('TAX SLAB CALCULATION');
       const engLabels = [
         'Tax Exempted (First BDT '+fmtN(r.exemptionLimit)+')',
-        'Next BDT 3,0,000',
+        'Next BDT 3,00,000',
         'Next BDT 4,0,000',
         'Next BDT 5,0,000',
         'Next BDT 20,0,000',
@@ -1358,7 +1354,7 @@
         bodyStyles:{fontSize:9,textColor:[40,52,46],lineColor:[220,225,222],lineWidth:0.15},
         columnStyles:{1:{halign:'right'},2:{halign:'right',cellWidth:14},3:{halign:'right',fontStyle:'bold'}},
       });
-      y = doc.autoTable.finalY + 5;
+      y = doc.lastAutoTable.finalY + 5;
 
       // ── TAX SUMMARY ──────────────────────
       secTitle('TAX SUMMARY');
@@ -1464,7 +1460,7 @@
         bodyStyles:{fontSize:8.5,textColor:[40,52,46],lineColor:[220,225,222],lineWidth:0.15},
         columnStyles:{0:{cellWidth:130},1:{halign:'right',fontStyle:'bold',textColor:[11,61,46]}},
       });
-      y = doc.autoTable.finalY + 8;
+      y = doc.lastAutoTable.finalY + 8;
 
       if(y > 265) { doc.addPage(); y = 16; }
       const advTxt = 'For accurate income tax return filing, please consult an experienced Income Tax Practitioner. Incorrect returns may result in penalties and legal complications.';
@@ -1477,11 +1473,6 @@
       doc.setTextColor(80,95,85);
       doc.text(advLines, M+5, y+13);
       y += advLines.length*4.5+14;
-
-      doc.footer = function(data) {
-        doc.setFontSize(7);
-        doc.text("Page " + data.pageCount, W - M, 285, {align: "right"});
-      };
 
       doc.setDrawColor(200,210,204); doc.setLineWidth(0.3);
       doc.line(M, y, W-M, y); y += 5;
