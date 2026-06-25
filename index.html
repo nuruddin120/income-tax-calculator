@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xc6paczxw8");
-</script><meta charset="UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Income Tax Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -699,6 +693,7 @@
       tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:18px;font-size:13px">আয়ের তথ্য দিন</td></tr>';
       return;
     }
+    const totalTaxable = rows.reduce((s,r)=>s+r.inBand, 0);
     tbody.innerHTML = rows.map(r=>{
       const isZero = r.rate===0;
       const rateStr = (r.rate*100)+'%';
@@ -708,7 +703,13 @@
         '<td class="rate-col '+(isZero?'zero':'')+'">'+rateStr+'</td>'+
         '<td class="tax-col '+(isZero?'zero':'')+'">'+bdt(r.tax)+'</td>'+
       '</tr>';
-    }).join('');
+    }).join('') +
+    '<tr style="border-top:2px solid var(--line);font-weight:700">'+
+      '<td>মোট করযোগ্য আয়</td>'+
+      '<td class="amt-col" style="font-weight:800">'+bdt(totalTaxable)+'</td>'+
+      '<td class="rate-col"></td>'+
+      '<td class="tax-col"></td>'+
+    '</tr>';
   }
 
   /* ─── Main calculate ─── */
