@@ -214,6 +214,8 @@
   /* ── Investment options table ───────── */
   .options { margin-top:32px; }
   .options h2 { font-size:15px; font-weight:700; margin-bottom:3px; }
+  #investOptToggle:hover h2 { color:var(--green); }
+  #investOptToggle:focus { outline:none; }
   .options .sub { font-size:13px; color:var(--muted); margin-bottom:12px; }
   .options table { width:100%; border-collapse:collapse; font-size:13px; }
   .options th {
@@ -578,43 +580,62 @@
 
   <!-- Investment options table -->
   <section class="options">
-    <h2>কোথায় বিনিয়োগ করবেন — Allowable Investment Options</h2>
-    <p class="sub">নিচের খাতগুলোতে বিনিয়োগ বা দান করলে ট্যাক্স ক্রেডিট পাওয়া যায়।</p>
-    <table>
-      <thead><tr><th>খাত / Details</th><th>সর্বোচ্চ সীমা</th></tr></thead>
-      <tbody>
-        <tr><td>জীবন বীমা প্রিমিয়াম (Life insurance premium)</td><td class="lim">পলিসি মূল্যের 10%</td></tr>
-        <tr><td>স্বীকৃত প্রভিডেন্ট ফান্ডে নিয়োগকর্তা ও কর্মীর অবদান</td><td class="lim">No limit</td></tr>
-        <tr><td>সুপারঅ্যানুয়েশন ফান্ডে অবদান</td><td class="lim">No limit</td></tr>
-        <tr>
-          <td>সরকারি সিকিউরিটিজে বিনিয়োগ (Treasury bill, Bond, সঞ্চয়পত্র, Debenture, শরিয়াহভিত্তিক সিকিউরিটিজ)</td>
-          <td class="lim">৳ 5,00,000</td>
-        </tr>
-        <tr>
-          <td>ইউনিট সার্টিফিকেট, মিউচুয়াল ফান্ড, ETF বা যৌথ বিনিয়োগ স্কিম</td>
-          <td class="lim">৳ 5,00,000</td>
-        </tr>
-        <tr><td>ডিপোজিট পেনশন স্কিম (DPS) বা মাসিক সঞ্চয় স্কিম</td><td class="lim">৳ 1,20,000</td></tr>
-        <tr><td>BSEC নিয়ন্ত্রিত স্টক এক্সচেঞ্জের তালিকাভুক্ত সিকিউরিটিজে বিনিয়োগ</td><td class="lim">No limit</td></tr>
-        <tr><td>NBR অনুমোদিত দাতব্য হাসপাতালে দান (সিটি কর্পোরেশন এলাকার বাইরে)</td><td class="lim">No limit</td></tr>
-        <tr><td>প্রতিবন্ধী কল্যাণে প্রতিষ্ঠিত সংস্থায় দান</td><td class="lim">No limit</td></tr>
-        <tr><td>যাকাত ফান্ড / Zakat Fund Management Act, 2023 অনুযায়ী দাতব্য ফান্ডে দান</td><td class="lim">No limit</td></tr>
-        <tr><td>NBR অনুমোদিত বেনেভোলেন্ট ফান্ড ও গ্রুপ ইনস্যুরেন্স স্কিমে অবদান</td><td class="lim">No limit</td></tr>
-        <tr><td>জনউন্নয়ন বা শিক্ষার জন্য বোর্ড অনুমোদিত প্রতিষ্ঠানে দান</td><td class="lim">No limit</td></tr>
-        <tr><td>মুক্তিযুদ্ধ জাদুঘরে দান (Liberation War Museum)</td><td class="lim">No limit</td></tr>
-        <tr><td>ASHIC, Foundation for Childhood Cancer</td><td class="lim">No limit</td></tr>
-        <tr><td>বাংলাদেশ ক্যান্সার এইড ট্রাস্ট (BANCAT)</td><td class="lim">No limit</td></tr>
-        <tr><td>আল-মারকাজুল ইসলামী</td><td class="lim">No limit</td></tr>
-        <tr><td>Disabled Child Foundation (DCF)</td><td class="lim">No limit</td></tr>
-        <tr><td>শেরপুর ডায়াবেটিক সমিতি</td><td class="lim">No limit</td></tr>
-        <tr><td>মাওনা ডায়াবেটিক এসোসিয়েশন</td><td class="lim">No limit</td></tr>
-        <tr><td>বাংলাদেশ থ্যালাসেমিয়া সমিতি</td><td class="lim">No limit</td></tr>
-        <tr><td>অটিজম ওয়েলফেয়ার ফাউন্ডেশন</td><td class="lim">No limit</td></tr>
-        <tr><td>ব্র্যাক (BRAC)</td><td class="lim">No limit</td></tr>
-        <tr><td>রামকৃষ্ণ মঠ ও রামকৃষ্ণ মিশন, ঢাকা</td><td class="lim">No limit</td></tr>
-        <tr><td>চট্টগ্রাম মা ও শিশু হাসপাতাল</td><td class="lim">No limit</td></tr>
-      </tbody>
-    </table>
+    <button id="investOptToggle" style="
+      width:100%;display:flex;align-items:center;justify-content:space-between;
+      background:none;border:none;padding:0;cursor:pointer;text-align:left;
+    " onclick="(function(){
+      const body=document.getElementById('investOptBody');
+      const arrow=document.getElementById('investOptArrow');
+      const open=body.style.display!=='none';
+      body.style.display=open?'none':'block';
+      arrow.style.transform=open?'rotate(0deg)':'rotate(180deg)';
+    })()">
+      <span>
+        <h2 style="margin:0">কোথায় বিনিয়োগ করবেন — Allowable Investment Options</h2>
+        <p class="sub" style="margin:4px 0 0">নিচের খাতগুলোতে বিনিয়োগ বা দান করলে ট্যাক্স ক্রেডিট পাওয়া যায়। বিস্তারিত দেখতে ক্লিক করুন।</p>
+      </span>
+      <svg id="investOptArrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-left:12px;transition:transform .25s;color:var(--green)">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+
+    <div id="investOptBody" style="display:none;margin-top:14px">
+      <table>
+        <thead><tr><th>খাত / Details</th><th>সর্বোচ্চ সীমা</th></tr></thead>
+        <tbody>
+          <tr><td>জীবন বীমা প্রিমিয়াম (Life insurance premium)</td><td class="lim">পলিসি মূল্যের 10%</td></tr>
+          <tr><td>স্বীকৃত প্রভিডেন্ট ফান্ডে নিয়োগকর্তা ও কর্মীর অবদান</td><td class="lim">No limit</td></tr>
+          <tr><td>সুপারঅ্যানুয়েশন ফান্ডে অবদান</td><td class="lim">No limit</td></tr>
+          <tr>
+            <td>সরকারি সিকিউরিটিজে বিনিয়োগ (Treasury bill, Bond, সঞ্চয়পত্র, Debenture, শরিয়াহভিত্তিক সিকিউরিটিজ)</td>
+            <td class="lim">৳ 5,00,000</td>
+          </tr>
+          <tr>
+            <td>ইউনিট সার্টিফিকেট, মিউচুয়াল ফান্ড, ETF বা যৌথ বিনিয়োগ স্কিম</td>
+            <td class="lim">৳ 5,00,000</td>
+          </tr>
+          <tr><td>ডিপোজিট পেনশন স্কিম (DPS) বা মাসিক সঞ্চয় স্কিম</td><td class="lim">৳ 1,20,000</td></tr>
+          <tr><td>BSEC নিয়ন্ত্রিত স্টক এক্সচেঞ্জের তালিকাভুক্ত সিকিউরিটিজে বিনিয়োগ</td><td class="lim">No limit</td></tr>
+          <tr><td>NBR অনুমোদিত দাতব্য হাসপাতালে দান (সিটি কর্পোরেশন এলাকার বাইরে)</td><td class="lim">No limit</td></tr>
+          <tr><td>প্রতিবন্ধী কল্যাণে প্রতিষ্ঠিত সংস্থায় দান</td><td class="lim">No limit</td></tr>
+          <tr><td>যাকাত ফান্ড / Zakat Fund Management Act, 2023 অনুযায়ী দাতব্য ফান্ডে দান</td><td class="lim">No limit</td></tr>
+          <tr><td>NBR অনুমোদিত বেনেভোলেন্ট ফান্ড ও গ্রুপ ইনস্যুরেন্স স্কিমে অবদান</td><td class="lim">No limit</td></tr>
+          <tr><td>জনউন্নয়ন বা শিক্ষার জন্য বোর্ড অনুমোদিত প্রতিষ্ঠানে দান</td><td class="lim">No limit</td></tr>
+          <tr><td>মুক্তিযুদ্ধ জাদুঘরে দান (Liberation War Museum)</td><td class="lim">No limit</td></tr>
+          <tr><td>ASHIC, Foundation for Childhood Cancer</td><td class="lim">No limit</td></tr>
+          <tr><td>বাংলাদেশ ক্যান্সার এইড ট্রাস্ট (BANCAT)</td><td class="lim">No limit</td></tr>
+          <tr><td>আল-মারকাজুল ইসলামী</td><td class="lim">No limit</td></tr>
+          <tr><td>Disabled Child Foundation (DCF)</td><td class="lim">No limit</td></tr>
+          <tr><td>শেরপুর ডায়াবেটিক সমিতি</td><td class="lim">No limit</td></tr>
+          <tr><td>মাওনা ডায়াবেটিক এসোসিয়েশন</td><td class="lim">No limit</td></tr>
+          <tr><td>বাংলাদেশ থ্যালাসেমিয়া সমিতি</td><td class="lim">No limit</td></tr>
+          <tr><td>অটিজম ওয়েলফেয়ার ফাউন্ডেশন</td><td class="lim">No limit</td></tr>
+          <tr><td>ব্র্যাক (BRAC)</td><td class="lim">No limit</td></tr>
+          <tr><td>রামকৃষ্ণ মঠ ও রামকৃষ্ণ মিশন, ঢাকা</td><td class="lim">No limit</td></tr>
+          <tr><td>চট্টগ্রাম মা ও শিশু হাসপাতাল</td><td class="lim">No limit</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
 </div><!-- /wrap -->
