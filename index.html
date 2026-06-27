@@ -1420,46 +1420,34 @@
       // ── RIGHT SIDE ──────────────────────────────
       const hRx = W - M;
 
-      // Row 1 (y=13): Inc[O]Tax Solutions
-      doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
-      const taxSolW = doc.getTextWidth('Tax Solutions');
-      const incW2   = doc.getTextWidth('Inc');
-      const circR2  = 3.2;
-      const circCX  = hRx - taxSolW - 1.5 - circR2; // circle center x
-      const brandY  = 13;
+      // Row 1 (y=14): IncoTax Solutions — plain text, red 'o' in 'Inco'
+      doc.setFontSize(13); doc.setFont('helvetica','bold');
+      const t1 = 'Inc'; const t2 = 'o'; const t3 = 'Tax Solutions';
+      const w1 = doc.getTextWidth(t1);
+      const w2 = doc.getTextWidth(t2);
+      const w3 = doc.getTextWidth(t3);
+      const brandStartX = hRx - w1 - w2 - w3;
+      doc.setTextColor(11,61,46);  doc.text(t1, brandStartX, 14);
+      doc.setTextColor(220,38,38); doc.text(t2, brandStartX + w1, 14);
+      doc.setTextColor(11,61,46);  doc.text(t3, brandStartX + w1 + w2, 14);
 
-      // "Tax Solutions" right-aligned
-      doc.text('Tax Solutions', hRx, brandY, {align:'right'});
-      // Circle with ৳
-      doc.setDrawColor(220,38,38); doc.setLineWidth(0.9); doc.setFillColor(255,255,255);
-      doc.circle(circCX, brandY - 3.5, circR2, 'FD');
-      doc.setFontSize(5.8); doc.setFont('helvetica','bold'); doc.setTextColor(220,38,38);
-      doc.text('\u09F3', circCX, brandY - 1.8, {align:'center'});
-      // "Inc" placed to left of circle
-      doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
-      doc.text('Inc', circCX - circR2 - 0.8, brandY, {align:'right'});
+      // Row 2 (y=22): Income Tax Calculator — right-aligned
+      doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(91,110,100);
+      doc.text('Income Tax Calculator', hRx, 22, {align:'right'});
 
-      // Row 2 (y=20): Slogan
-      doc.setFontSize(7); doc.setFont('helvetica','italic'); doc.setTextColor(160,170,165);
-      doc.text('Taxes Done Right...', hRx, 20, {align:'right'});
-
-      // Row 3 (y=26): Income Tax Calculator
-      doc.setFontSize(8.5); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
-      doc.text('Income Tax Calculator', hRx, 26.5, {align:'right'});
-
-      // Row 4 (y=33): Find Us On icons | Date right
+      // Row 3 (y=30–34): Find Us On + icons — right-aligned group
       doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(120,130,125);
-      doc.text('Find Us On:', hRx - 52, 34);
+      doc.text('Find Us On:', hRx - 50, 34);
 
-      // Facebook
-      const fbX = hRx - 38; const fbY = 30; const fbSz = 5;
+      // Facebook — right of "Find Us On:"
+      const fbX = hRx - 37; const fbY = 29.5; const fbSz = 5;
       doc.setFillColor(24,119,242); doc.roundedRect(fbX, fbY, fbSz, fbSz, 0.8, 0.8, 'F');
       doc.setFontSize(4.5); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
       doc.text('f', fbX+1.5, fbY+3.6);
       doc.link(fbX, fbY, fbSz, fbSz, {url:'https://www.facebook.com/IncoTaxBD'});
 
       // LinkedIn
-      const liX = hRx - 30; const liY = 30; const liSz = 5;
+      const liX = hRx - 29; const liY = 29.5; const liSz = 5;
       doc.setFillColor(0,119,181); doc.roundedRect(liX, liY, liSz, liSz, 0.8, 0.8, 'F');
       doc.setFontSize(4); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
       doc.text('in', liX+0.8, liY+3.6);
@@ -1467,12 +1455,13 @@
 
       // Web
       doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
-      doc.text('Web', hRx - 22, 34);
-      doc.link(hRx - 22, 30, doc.getTextWidth('Web'), 5, {url:'https://incotax-solutions.vercel.app/'});
+      const webLbl = 'Web';
+      doc.text(webLbl, hRx - 21, 34);
+      doc.link(hRx - 21, 29.5, doc.getTextWidth(webLbl), 5, {url:'https://incotax-solutions.vercel.app/'});
 
-      // Date right-aligned
+      // Row 4 (y=39): Date — right-aligned
       doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(140,150,145);
-      doc.text('Date: '+today, hRx, 38, {align:'right'});
+      doc.text('Date: '+today, hRx, 39, {align:'right'});
 
       y = 50;
 
