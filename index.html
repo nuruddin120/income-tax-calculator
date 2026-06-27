@@ -1437,27 +1437,39 @@
 
       // Row 3 (y=30–34): Find Us On + icons — right-aligned group
       doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(120,130,125);
-      doc.text('Find Us On:', hRx - 50, 34);
 
-      // Facebook — right of "Find Us On:"
-      const fbX = hRx - 37; const fbY = 29.5; const fbSz = 5;
+      // Facebook
+      const fbSz = 6; const fbY = 28.5;
+      const fbX = hRx - fbSz;
+      // LinkedIn
+      const liSz = 6; const liY = 28.5;
+      const liX = fbX - liSz - 2;
+      // Web label
+      doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
+      const webLbl = 'Web';
+      const webLblW = doc.getTextWidth(webLbl);
+      const webLblX = liX - webLblW - 2;
+      // Find Us On: label — right before Web
+      doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(120,130,125);
+      const findW = doc.getTextWidth('Find Us On:');
+      doc.text('Find Us On:', webLblX - findW - 1.5, 34);
+
+      // Draw Facebook
       doc.setFillColor(24,119,242); doc.roundedRect(fbX, fbY, fbSz, fbSz, 0.8, 0.8, 'F');
-      doc.setFontSize(4.5); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('f', fbX+1.5, fbY+3.6);
+      doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('f', fbX + fbSz/2, fbY + 4.4, {align:'center'});
       doc.link(fbX, fbY, fbSz, fbSz, {url:'https://www.facebook.com/IncoTaxBD'});
 
-      // LinkedIn
-      const liX = hRx - 29; const liY = 29.5; const liSz = 5;
+      // Draw LinkedIn
       doc.setFillColor(0,119,181); doc.roundedRect(liX, liY, liSz, liSz, 0.8, 0.8, 'F');
-      doc.setFontSize(4); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-      doc.text('in', liX+0.8, liY+3.6);
+      doc.setFontSize(5.5); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+      doc.text('in', liX + liSz/2, liY + 4.2, {align:'center'});
       doc.link(liX, liY, liSz, liSz, {url:'https://www.linkedin.com/company/incotax-solutions/'});
 
-      // Web
-      doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
-      const webLbl = 'Web';
-      doc.text(webLbl, hRx - 21, 34);
-      doc.link(hRx - 21, 29.5, doc.getTextWidth(webLbl), 5, {url:'https://incotax-solutions.vercel.app/'});
+      // Draw Web
+      doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(11,61,46);
+      doc.text(webLbl, webLblX, 34);
+      doc.link(webLblX, 28.5, webLblW, 6, {url:'https://incotax-solutions.vercel.app/'});
 
       // Row 4 (y=39): Date — right-aligned
       doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(140,150,145);
